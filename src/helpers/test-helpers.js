@@ -10,11 +10,16 @@ const totalPercentageReducer = (acc, { score, weight, maxScore }) => {
 
 const getTestScore = (runnerResult) => {
   const { tests } = runnerResult;
-  const score = runnerResult.tests.reduce((acc, { status }) => {
-    return status === "pass" ? acc + 1 : acc;
+  // const score = runnerResult.tests.reduce((acc, { status }) => {
+  //   return status === "pass" ? acc + 1 : acc;
+  // }, 0);
+  // return (score / tests.length) * (getMaxScoreForTest(runnerResult) || 0);
+  
+  const score = runnerResult.tests.reduce((acc, { score }) => {
+    return acc + score;
   }, 0);
+  return score;
 
-  return (score / tests.length) * (getMaxScoreForTest(runnerResult) || 0);
 };
 
 const getTestWeight = (maxScore, allMaxScores) => {
